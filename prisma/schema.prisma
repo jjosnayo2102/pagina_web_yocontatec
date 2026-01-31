@@ -1,0 +1,19 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  // AHORA SÍ: Agrega esta línea obligatoria en la v5
+  url      = env("DATABASE_URL")
+}
+
+model ContactMessage {
+  id        String   @id @default(uuid())
+  name      String
+  email     String
+  subject   String
+  message   String   @db.Text
+  status    String   @default("NUEVO")
+  createdAt DateTime @default(now())
+}
