@@ -1,150 +1,228 @@
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
-import Image from 'next/image';
 import Link from 'next/link';
 import { 
-  // Iconos de Features
-  Cloud, LineChart, ShieldCheck, 
-  // Iconos de Trust
-  Layers, Zap, Globe, TrendingUp, Hexagon,
-  // Iconos generales
-  ArrowRight 
+  // Iconos Features
+  ShieldCheck, Clock, Award,
+  // Iconos Servicios
+  Calculator, Users, FileText, BarChart3,
+  // Iconos UI
+  ArrowRight, ChevronLeft, ChevronRight
 } from 'lucide-react';
-import CtaSection from '@/components/CtaSection';
 
 export default function Home() {
   
   // --- DATOS: FEATURES ---
   const features = [
+    { icon: Clock, title: "Eficiencia de Tiempo", description: "Automatizamos procesos para que obtengas tus balances en tiempo récord." },
+    { icon: ShieldCheck, title: "Seguridad Garantizada", description: "Tus datos están protegidos con los estándares más altos de la industria." },
+    { icon: Award, title: "Excelencia Profesional", description: "Un equipo con años de experiencia en normativa fiscal y contable." }
+  ];
+
+  // --- DATOS: SERVICIOS ---
+  const services = [
     {
-      icon: Cloud,
-      color: "text-[#38bdf8]", // Sky blue
-      bg: "bg-sky-50",
-      title: "Contabilidad en la Nube",
-      description: "Acceso seguro 24/7 a tus datos financieros desde cualquier dispositivo."
+      title: "Contabilidad Fiscal",
+      desc: "Gestión completa de impuestos y declaraciones mensuales.",
+      link: "/servicios/fiscal",
+      icon: Calculator,
+      colorAccent: "text-blue-600 bg-blue-50 group-hover:bg-blue-600"
     },
     {
-      icon: LineChart,
-      color: "text-[#a3e635]", // Lime green
-      bg: "bg-lime-50",
-      title: "Reportes en tiempo real",
-      description: "Toma decisiones informadas con información actualizada al instante."
+      title: "Gestión de Nóminas",
+      desc: "Administración eficiente de sueldos, beneficios y contratos.",
+      link: "/servicios/nominas",
+      icon: Users,
+      colorAccent: "text-green-600 bg-green-50 group-hover:bg-green-600"
     },
     {
-      icon: ShieldCheck,
-      color: "text-[#FF451A]", // Brand Red/Orange
-      bg: "bg-orange-50",
-      title: "Asesoría experta",
-      description: "Maximiza tus beneficios y cumple con la normativa fiscal sin preocupaciones."
+      title: "Auditoría Financiera",
+      desc: "Revisión detallada para garantizar la salud de tu empresa.",
+      link: "/servicios/auditoria",
+      icon: FileText,
+      colorAccent: "text-red-500 bg-red-50 group-hover:bg-red-500"
+    },
+    {
+      title: "Consultoría Estratégica",
+      desc: "Asesoramiento para la expansión y optimización de recursos.",
+      link: "/servicios/consultoria",
+      icon: BarChart3,
+      colorAccent: "text-sky-500 bg-sky-50 group-hover:bg-sky-500"
     }
   ];
 
-  // --- DATOS: TRUST / EMPRESAS ---
-  const companies = [
-    { name: "TechStart Solutions", icon: <Layers size={24} /> },
-    { name: "InnovateNow", icon: <Zap size={24} /> },
-    { name: "GlobalFinance", icon: <Globe size={24} /> },
-    { name: "DigitalGrowth", icon: <TrendingUp size={24} /> },
-    { name: "FutureWorks", icon: <Hexagon size={24} /> },
+  // --- DATOS: TRUST (Estadísticas) ---
+  const stats = [
+    { number: "+2,000", label: "Clientes satisfechos" },
+    { number: "+900", label: "Fiscalizaciones atendidas" },
+    { number: "+500", label: "Empresas constituidas" },
+    { number: "+20", label: "Años en el mercado" },
+  ];
+
+  // --- DATOS: TRUST (Logos) ---
+  const clientLogos = [
+    "Renzo Costa", "iShop", "Sedapal", "Corpac", "Univ. Continental", "Mivivienda"
   ];
 
   return (
-    <main className="min-h-screen bg-white font-sans">
+    <main className="min-h-screen bg-white font-sans selection:bg-blue-100 selection:text-blue-900">
       <Navbar />
 
-      {/* ----------------- HERO SECTION ----------------- */}
-      <section className="relative w-full min-h-screen flex items-center pt-20 overflow-hidden bg-gradient-to-br from-[#000428] to-[#004e92]">
+      {/* ----------------- HERO SECTION (VIDEO) ----------------- */}
+      <section className="relative w-full h-[90vh] min-h-[600px] flex items-center overflow-hidden">
         
-        {/* Decoración de fondo */}
-        <div className="absolute top-0 right-0 w-1/2 h-full bg-blue-500/10 blur-3xl rounded-full translate-x-1/2"></div>
+        {/* FONDO DE VIDEO */}
+        <div className="absolute inset-0 z-0">
+            <video 
+                autoPlay 
+                muted 
+                loop 
+                playsInline 
+                className="w-full h-full object-cover"
+            >
+                <source src="/hero-video.webm" type="video/webm" />
+                {/* <source src="/hero-video.mp4" type="video/mp4" /> */}
+            </video>
 
-        <div className="max-w-7xl mx-auto px-6 w-full grid grid-cols-1 md:grid-cols-2 gap-12 items-center relative z-10">
-          
-          {/* Columna Texto */}
-          <div className="space-y-6 text-center md:text-left">
-            <h1 className="text-4xl md:text-6xl font-bold text-white leading-tight">
-              Contabilidad <br/>
-              Inteligente para <br/>
-              las Empresas <br/>
-              de <span className="text-blue-400">Hoy</span>
-            </h1>
+            {/* CORRECCIÓN DE COLOR: Capa oscura (blue-950) al 60% de opacidad. 
+                Ya no usa 'mix-blend-multiply', por lo que el video conserva sus colores naturales pero más oscuros. */}
+            <div className="absolute inset-0 bg-blue-950/60"></div>
             
-            <p className="text-gray-300 text-lg md:text-xl max-w-lg mx-auto md:mx-0 leading-relaxed">
-              Impulsamos tu crecimiento con tecnología de vanguardia y asesoramiento experto.
-            </p>
-            
-            <div className="pt-4">
-              <Link href="/contacto">
-                <button className="bg-blue-600 hover:bg-blue-700 text-white text-lg px-8 py-3 rounded-lg font-semibold transition-all shadow-lg shadow-blue-600/40 hover:scale-105">
-                  Contáctanos
-                </button>
-              </Link>
+            {/* Gradiente sutil desde la izquierda para asegurar legibilidad del texto */}
+            <div className="absolute inset-0 bg-gradient-to-r from-blue-950/80 via-transparent to-transparent"></div>
+        </div>
+
+        {/* CONTENIDO DEL HERO */}
+        <div className="relative z-10 max-w-7xl mx-auto px-6 w-full h-full flex flex-col justify-center pt-20">
+            <div className="max-w-3xl">
+                <h1 className="text-5xl lg:text-7xl font-bold text-white leading-tight mb-6 drop-shadow-sm">
+                    Impulsamos el <br/>
+                    <span className="text-sky-300">Futuro Financiero</span> <br/>
+                    de tu Empresa.
+                </h1>
+                
+                <p className="text-xl text-blue-100 mb-10 font-light max-w-2xl leading-relaxed">
+                    Soluciones contables integrales diseñadas para la era digital. Precisión, rapidez y estrategia en un solo lugar.
+                </p>
+
+                {/* BOTÓN ÚNICO (Se eliminó "Explorar Servicios") */}
+                <div className="flex flex-wrap gap-4">
+                    <Link href="/contacto">
+                        <button className="bg-blue-600 hover:bg-blue-500 text-white text-lg px-10 py-4 rounded-lg font-semibold transition-all shadow-lg hover:-translate-y-1 hover:shadow-blue-500/30">
+                            Contáctanos Ahora
+                        </button>
+                    </Link>
+                </div>
             </div>
-          </div>
-
-          {/* Columna Imagen */}
-          <div className="relative h-[400px] md:h-[600px] w-full flex justify-center items-center">
-              <div className="relative w-full h-full rounded-2xl overflow-hidden border border-white/10 shadow-2xl">
-                  {/* Asegúrate de tener esta imagen en tu carpeta public */}
-                  <Image 
-                    src="/hero-image.png" 
-                    alt="Profesional contable con tecnología"
-                    fill
-                    className="object-cover object-top"
-                    priority
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#000428] via-transparent to-transparent opacity-60"></div>
-              </div>
-          </div>
         </div>
       </section>
 
       {/* ----------------- FEATURES SECTION ----------------- */}
-      <section className="w-full py-24 bg-white">
-        <div className="max-w-7xl mx-auto px-6">
-          <h2 className="text-3xl md:text-4xl font-bold text-center text-[#001233] mb-16">
+      <section className="w-full py-24 bg-white relative z-20 rounded-t-3xl -mt-6 shadow-[0_-10px_30px_rgba(0,0,0,0.05)]">
+        <div className="max-w-7xl mx-auto px-6 text-center">
+          <span className="text-blue-600 font-semibold uppercase tracking-wider text-sm mb-2 block">Nuestros Pilares</span>
+          <h2 className="text-3xl md:text-5xl font-bold text-blue-950 mb-16">
             ¿Por qué elegirnos?
           </h2>
-
+          
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
             {features.map((feature, index) => (
-              <div key={index} className="flex flex-col items-center text-center p-6 hover:bg-white rounded-xl transition-all duration-300 hover:shadow-xl hover:-translate-y-1 border border-transparent hover:border-slate-100 group">
-                
-                <div className={`p-5 rounded-full mb-6 ${feature.bg} transition-transform group-hover:scale-110`}>
-                  <feature.icon size={48} className={feature.color} strokeWidth={1.5} />
+              <div key={index} className="flex flex-col items-center p-8 rounded-2xl transition-all duration-300 group hover:shadow-xl hover:shadow-blue-900/5 border border-transparent hover:border-blue-100 hover:-translate-y-1 bg-white">
+                <div className="p-5 bg-blue-50 rounded-2xl text-blue-600 mb-6 group-hover:bg-blue-600 group-hover:text-white transition-colors duration-300 shadow-sm">
+                  <feature.icon size={36} strokeWidth={1.5} />
                 </div>
-                
-                <h3 className="text-xl font-bold text-[#001233] mb-3">
-                  {feature.title}
-                </h3>
-                <p className="text-slate-600 leading-relaxed">
-                  {feature.description}
-                </p>
+                <h3 className="text-2xl font-bold text-blue-950 mb-4">{feature.title}</h3>
+                <p className="text-slate-600 leading-relaxed">{feature.description}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ----------------- TRUST SECTION ----------------- */}
-      <section className="w-full py-20 bg-[#F8F9FB]">
-        <div className="max-w-7xl mx-auto px-6 text-center">
-          <h3 className="text-2xl md:text-3xl font-bold text-[#001233] mb-12">
-            Empresas que confían en nosotras
-          </h3>
+      {/* ----------------- SERVICIOS SECTION ----------------- */}
+      <section className="w-full py-24 bg-slate-50/80 border-y border-slate-100">
+        <div className="max-w-7xl mx-auto px-6">
+            <div className="text-center mb-16">
+                <span className="text-blue-600 font-bold uppercase tracking-wider text-sm">Soluciones Integrales</span>
+                <h2 className="text-4xl font-bold text-blue-950 mt-2">Servicios Especializados</h2>
+            </div>
 
-          <div className="flex flex-wrap justify-center items-center gap-8 md:gap-20 opacity-60 grayscale hover:grayscale-0 transition-all duration-500">
-            {companies.map((company, index) => (
-              <div key={index} className="flex items-center gap-3 font-bold text-slate-500 text-xl select-none hover:text-blue-600 transition-colors">
-                {company.icon}
-                <span>{company.name}</span>
-              </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                {services.map((svc, idx) => (
+                    <Link href={svc.link} key={idx} className="group h-full">
+                        <div className="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 h-full flex flex-col hover:shadow-xl transition-all duration-300 hover:-translate-y-1 relative overflow-hidden">
+                            <div className={`absolute top-0 left-0 w-full h-1 ${svc.colorAccent.split(' ')[1].replace('bg-', 'bg-')}`}></div>
+                            
+                            <div className={`w-14 h-14 rounded-xl flex items-center justify-center mb-6 transition-colors duration-300 ${svc.colorAccent.split('group-hover')[0]} ${svc.colorAccent.split(' ')[2] || ''} group-hover:text-white`}>
+                                <svc.icon size={28} />
+                            </div>
+                            <h3 className="text-xl font-bold text-blue-950 mb-3 group-hover:text-blue-700 transition-colors">
+                                {svc.title}
+                            </h3>
+                            <p className="text-slate-600 text-sm mb-6 flex-grow leading-relaxed">
+                                {svc.desc}
+                            </p>
+                            <span className="text-sm font-bold text-blue-600 flex items-center gap-2 mt-auto">
+                                Detalles <ArrowRight size={16} className="transition-transform group-hover:translate-x-1"/>
+                            </span>
+                        </div>
+                    </Link>
+                ))}
+            </div>
+            <div className="text-center mt-12">
+                <Link href="/servicios" className="inline-flex items-center gap-2 text-blue-700 font-semibold hover:underline">
+                    Ver catálogo completo de servicios <ArrowRight size={18}/>
+                </Link>
+            </div>
+        </div>
+      </section>
+
+      {/* ----------------- TRUST SECTION PT 1: Estadísticas ----------------- */}
+      <section className="w-full py-20 bg-gradient-to-br from-blue-600 to-blue-800 text-white">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+            {stats.map((stat, i) => (
+                <div key={i}>
+                    <p className="text-5xl md:text-6xl font-bold text-sky-200 mb-2 tracking-tight drop-shadow-sm">{stat.number}</p>
+                    <p className="text-blue-100 font-medium text-lg">{stat.label}</p>
+                </div>
             ))}
           </div>
         </div>
       </section>
 
-      <CtaSection /> 
+      {/* ----------------- TRUST SECTION PT 2: Clientes ----------------- */}
+      <section className="w-full py-24 bg-white text-blue-950 relative overflow-hidden">
+        <div className="max-w-7xl mx-auto px-6 relative">
+
+            <h2 className="text-center text-3xl font-bold mb-16 uppercase tracking-wide text-[#001233]">
+              Algunos Clientes
+            </h2>
+
+            <div className="relative flex items-center group">
+                {/* Flecha Izquierda */}
+                <button className="absolute left-0 z-10 p-3 rounded-full bg-white shadow-lg text-blue-600 hover:bg-blue-50 transition-all opacity-0 group-hover:opacity-100 -translate-x-6 group-hover:translate-x-0 hidden md:block border border-slate-100">
+                    <ChevronLeft size={32} />
+                </button>
+
+                {/* Lista de Logos */}
+                <div className="w-full overflow-hidden px-4 md:px-12">
+                    <div className="flex justify-between items-center gap-8 md:gap-12 grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-500">
+                        {clientLogos.map((name, index) => (
+                        <div key={index} className="flex-shrink-0 h-20 w-40 bg-slate-50 border border-slate-100 rounded-lg flex items-center justify-center p-4">
+                            <span className="text-slate-400 font-bold italic text-center text-sm">{name}</span>
+                        </div>
+                        ))}
+                    </div>
+                </div>
+
+                {/* Flecha Derecha */}
+                <button className="absolute right-0 z-10 p-3 rounded-full bg-white shadow-lg text-blue-600 hover:bg-blue-50 transition-all opacity-0 group-hover:opacity-100 translate-x-6 group-hover:translate-x-0 hidden md:block border border-slate-100">
+                    <ChevronRight size={32} />
+                </button>
+            </div>
+        </div>
+      </section>
 
       <Footer />
     </main>
