@@ -38,7 +38,7 @@ export default function ContactoPage() {
   }
 
   return (
-    <main className="min-h-screen bg-slate-50 font-sans text-slate-800">
+    <main className="min-h-screen bg-sky-50 font-sans text-slate-800">
       <Navbar />
 
       {/* 1. HEADER */}
@@ -60,7 +60,7 @@ export default function ContactoPage() {
       <section className="max-w-3xl mx-auto px-6 py-16">
         <div className="text-center mb-10">
           <h2 className="text-2xl font-bold text-[#0A192F]">Envíanos un mensaje</h2>
-          <p className="text-slate-500 mt-2">Te responderemos a la brevedad posible.</p>
+          <p className="text-blue-700/70 mt-2">Te responderemos a la brevedad posible.</p>
         </div>
 
         <form ref={formRef} onSubmit={handleSubmit} className="space-y-6">
@@ -89,16 +89,16 @@ export default function ContactoPage() {
                 </div>
             )}
 
-            <button type="submit" disabled={isSubmitting} className="w-full bg-[#0A192F] hover:bg-blue-900 disabled:bg-slate-400 disabled:cursor-not-allowed text-white font-bold py-4 rounded-xl transition-all flex items-center justify-center gap-2 shadow-xl shadow-blue-900/20 hover:translate-y-[-2px]">
+            <button type="submit" disabled={isSubmitting} className="w-full bg-[#0A192F] hover:bg-blue-900 disabled:bg-blue-300 disabled:cursor-not-allowed text-white font-bold py-4 rounded-xl transition-all flex items-center justify-center gap-2 shadow-xl shadow-blue-900/20 hover:translate-y-[-2px]">
                 {isSubmitting ? <><Loader2 className="w-5 h-5 animate-spin" /> Enviando...</> : <><Send size={20} /> Enviar Mensaje</>}
             </button>
         </form>
 
         <div className="mt-6 text-center">
              <div className="relative flex py-5 items-center">
-                <div className="flex-grow border-t border-slate-300"></div>
-                <span className="flex-shrink mx-4 text-slate-400 text-sm">¿Prefieres algo más rápido?</span>
-                <div className="flex-grow border-t border-slate-300"></div>
+                <div className="flex-grow border-t border-sky-200"></div>
+                <span className="flex-shrink mx-4 text-blue-500 text-sm">¿Prefieres algo más rápido?</span>
+                <div className="flex-grow border-t border-sky-200"></div>
             </div>
             <a href="https://wa.me/51987889073" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-green-600 font-bold hover:text-green-700 transition-colors bg-green-50 px-6 py-3 rounded-full hover:bg-green-100">
                 <MessageCircle size={20} /> Escríbenos por WhatsApp
@@ -107,7 +107,7 @@ export default function ContactoPage() {
       </section>
 
       {/* 3. INFO DE CONTACTO (Fondo Blanco) */}
-      <section className="bg-white py-16 border-t border-slate-100">
+      <section className="bg-white py-16 border-t border-sky-100">
         <div className="max-w-5xl mx-auto px-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-10 text-center">
                 <div className="flex flex-col items-center justify-center group">
@@ -134,7 +134,7 @@ export default function ContactoPage() {
       </section>
 
       {/* 4. SELECCIÓN DE SEDES */}
-      <section className="bg-slate-50 py-16 border-t border-slate-200">
+      <section className="bg-emerald-50 py-16 border-t border-emerald-100">
         <div className="max-w-5xl mx-auto px-6">
             <h3 className="text-center text-[#0A192F] font-bold text-3xl md:text-4xl mb-12 flex items-center justify-center gap-3">
                 <Building2 className="text-blue-600" size={40} /> Nuestras Sedes
@@ -148,7 +148,7 @@ export default function ContactoPage() {
                     className={`relative p-8 rounded-2xl border-2 flex flex-col items-center text-center cursor-pointer transition-all duration-300 hover:shadow-lg hover:-translate-y-1 ${
                         activeLocation === 'sjm' 
                         ? 'bg-blue-50/80 border-blue-500 shadow-md' 
-                        : 'bg-white border-slate-200 hover:border-blue-300'
+                        : 'bg-white border-emerald-200 hover:border-blue-300'
                     }`}
                 >
                     {/* --- AQUÍ ESTÁ EL INDICADOR DE SEDE PRINCIPAL --- */}
@@ -157,7 +157,7 @@ export default function ContactoPage() {
                         Principal
                     </span>
 
-                    <div className={`p-4 rounded-full mb-4 transition-colors ${activeLocation === 'sjm' ? 'bg-white text-blue-600' : 'bg-slate-100 text-slate-400'}`}>
+                    <div className={`p-4 rounded-full mb-4 transition-colors ${activeLocation === 'sjm' ? 'bg-white text-blue-600' : 'bg-red-100 text-red-400'}`}>
                         <MapPin size={28} />
                     </div>
                     <h4 className={`text-xl font-bold mb-2 ${activeLocation === 'sjm' ? 'text-blue-900' : 'text-slate-700'}`}>Sede San Juan de Miraflores</h4>
@@ -170,10 +170,10 @@ export default function ContactoPage() {
                     className={`relative p-8 rounded-2xl border-2 flex flex-col items-center text-center cursor-pointer transition-all duration-300 hover:shadow-lg hover:-translate-y-1 ${
                         activeLocation === 'surco' 
                         ? 'bg-blue-50/80 border-blue-500 shadow-md' 
-                        : 'bg-white border-slate-200 hover:border-blue-300'
+                        : 'bg-white border-emerald-200 hover:border-blue-300'
                     }`}
                 >
-                    <div className={`p-4 rounded-full mb-4 transition-colors ${activeLocation === 'surco' ? 'bg-white text-blue-600' : 'bg-slate-100 text-slate-400'}`}>
+                    <div className={`p-4 rounded-full mb-4 transition-colors ${activeLocation === 'surco' ? 'bg-white text-blue-600' : 'bg-red-100 text-red-400'}`}>
                         <MapPin size={28} />
                     </div>
                     <h4 className={`text-xl font-bold mb-2 ${activeLocation === 'surco' ? 'text-blue-900' : 'text-slate-700'}`}>Sede Surco</h4>
@@ -185,7 +185,7 @@ export default function ContactoPage() {
       </section>
 
       {/* 5. MAPA INTERACTIVO */}
-      <section className="w-full h-[500px] bg-slate-200 transition-all duration-500">
+      <section className="w-full h-[500px] bg-cyan-100 transition-all duration-500">
         <iframe 
             key={activeLocation} 
             src={mapUrls[activeLocation]}

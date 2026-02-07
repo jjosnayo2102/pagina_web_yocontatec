@@ -144,7 +144,7 @@ export default function ServiciosPage() {
                 </div>
                 
                 {/* Elemento decorativo detrás de la imagen (cuadrado de puntos o color sólido) */}
-                <div className={`absolute -z-10 w-2/3 h-2/3 bg-slate-100 rounded-3xl -bottom-6 ${index % 2 === 1 ? '-left-6' : '-right-6'}`}></div>
+                <div className={`absolute -z-10 w-2/3 h-2/3 bg-cyan-100 rounded-3xl -bottom-6 ${index % 2 === 1 ? '-left-6' : '-right-6'}`}></div>
               </div>
 
             </div>
