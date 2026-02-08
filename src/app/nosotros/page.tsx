@@ -59,34 +59,50 @@ export default function NosotrosPage() {
     <main className="min-h-screen bg-white font-sans text-slate-800">
       <Navbar />
 
-      <div className="h-20 lg:h-24 bg-[#0A192F]" />
-
-      <section className="relative isolate overflow-hidden bg-gradient-to-br from-[#071a35] via-[#0A2548] to-[#103a64] py-24 lg:py-32">
-        <div className="absolute inset-0 opacity-30 [background-image:radial-gradient(circle_at_20%_20%,rgba(56,189,248,0.32),transparent_45%),radial-gradient(circle_at_80%_10%,rgba(16,185,129,0.24),transparent_40%),radial-gradient(circle_at_75%_85%,rgba(248,113,113,0.26),transparent_45%)]" />
-
-        <div className="relative mx-auto grid max-w-7xl grid-cols-1 items-center gap-14 px-6 lg:grid-cols-[1.1fr_0.9fr]">
-          <div className="space-y-8">
+      {/* --- SECCIÓN HERO (OPCIÓN 3: SPLIT SCREEN CON GRADIENTE SUTIL) --- */}
+      <section className="relative flex flex-col lg:flex-row min-h-[85vh] bg-[#071a35]">
+        
+        {/* COLUMNA IZQUIERDA: TEXTO */}
+        {/* Fondo sólido que coincide con el inicio del gradiente */}
+        <div className="flex flex-1 flex-col justify-center px-6 py-20 lg:pl-24 lg:pr-16 z-10 bg-[#071a35]">
+          <div className="max-w-xl">
             <h1 className="text-4xl font-bold leading-tight text-white md:text-5xl lg:text-6xl">
               ¿Quiénes Somos?
             </h1>
-            <p className="max-w-xl text-lg leading-relaxed text-cyan-100">
+            <p className="mt-6 text-lg leading-relaxed text-cyan-100">
               Somos una firma contable de vanguardia, conformada 100% por{' '}
               <span className="font-semibold text-blue-300">mujeres expertas</span> dedicadas a redefinir
               los estándares de la consultoría financiera.
             </p>
-            <p className="max-w-xl text-lg leading-relaxed text-cyan-100">
+            <p className="mt-4 text-lg leading-relaxed text-cyan-100">
               Nuestra esencia combina la precisión técnica con la innovación digital. No solo llevamos
               contabilidad; construimos estrategias que transforman datos en decisiones de valor.
             </p>
           </div>
+        </div>
 
-          <div className="relative h-[430px] w-full overflow-hidden rounded-[2rem] border border-white/20 shadow-2xl lg:h-[540px]">
-            <Image src="/office-meeting.jpg" alt="Equipo profesional" fill className="object-cover" priority />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#031025]/75 via-[#0b2a53]/25 to-transparent" />
-          </div>
+        {/* COLUMNA DERECHA: IMAGEN FULL HEIGHT */}
+        <div className="relative h-[500px] w-full lg:h-auto lg:w-[50%]">
+          <Image 
+            src="/office-meeting.jpg" 
+            alt="Equipo profesional en reunión" 
+            fill 
+            className="object-cover" 
+            priority 
+          />
+          
+          {/* EL DETALLE CLAVE: Gradiente de fusión */}
+          {/* Solo ocupa un pequeño ancho (w-32) a la izquierda de la imagen para suavizar el corte */}
+          {/* Va del color de fondo (#071a35) a transparente */}
+          <div className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-[#071a35] to-transparent z-10" />
+          
+          {/* Overlay opcional muy suave para unificar tonos (apenas perceptible) */}
+          <div className="absolute inset-0 bg-[#071a35]/10 mix-blend-multiply" />
         </div>
       </section>
 
+      {/* --- RESTO DE LAS SECCIONES (Sin cambios estructurales) --- */}
+      
       <section className="relative overflow-hidden bg-sky-50 py-20">
         <div className="absolute inset-x-0 top-0 h-20 bg-gradient-to-b from-sky-100/70 to-transparent" />
         <div className="mx-auto max-w-7xl px-6">

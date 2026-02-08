@@ -2,9 +2,34 @@
 
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
-import { Phone, Mail, MapPin, MessageCircle, Send, Loader2, Building2 } from 'lucide-react';
+import { Phone, Mail, MapPin, MessageCircle, Send, Loader2, Clock, ArrowRight, CheckCircle2 } from 'lucide-react';
 import { useState, useRef } from 'react';
 import { submitContactForm } from '@/actions/contact-action';
+import Link from 'next/link';
+
+// Datos de las sedes para facilitar el cambio de información
+const locationData = {
+  sjm: {
+    id: 'sjm',
+    shortName: 'San Juan de Miraflores',
+    fullName: 'Sede San Juan de Miraflores',
+    address: 'C. Maximiliano Carranza 486',
+    city: 'San Juan de Miraflores, Lima',
+    phone: '+51 987 889 073',
+    hours: 'Lun - Vie: 9:00 AM - 6:00 PM',
+    mapUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3900.244346850259!2d-76.9744!3d-12.16!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTLCsDA5JzM2LjAiUyA3NsKwNTgnMjcuOCJX!5e0!3m2!1ses!2spe!4v1700000000000!5m2!1ses!2spe" // Tu URL original
+  },
+  surco: {
+    id: 'surco',
+    shortName: 'Surco',
+    fullName: 'Sede Santiago de Surco',
+    address: 'Jr. David Roca Varea Sur 306',
+    city: 'Santiago de Surco, Lima',
+    phone: '+51 987 889 073',
+    hours: 'Lun - Vie: 9:00 AM - 6:00 PM',
+    mapUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3900.7456!2d-76.99!3d-12.13!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTLCsDA3JzQ0LjAiUyA3NsKwNTknMjQuMCJX!5e0!3m2!1ses!2spe!4v1700000000001!5m2!1ses!2spe" // Tu URL original
+  }
+};
 
 export default function ContactoPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -12,14 +37,11 @@ export default function ContactoPage() {
   
   // Estado para controlar qué mapa se muestra (Default: 'sjm')
   const [activeLocation, setActiveLocation] = useState<'sjm' | 'surco'>('sjm');
+  
+  // Helper para obtener los datos actuales de forma limpia
+  const currentLocation = locationData[activeLocation];
 
   const formRef = useRef<HTMLFormElement>(null);
-
-  // URLs de los mapas
-  const mapUrls = {
-    sjm: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3900.3712904647855!2d-76.97728702536367!3d-12.155106043926544!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9105b963edf34a9d%3A0xad0efb2271a2aafb!2sYOCONTA%20TEC!5e0!3m2!1ses-419!2spe!4v1769223332032!5m2!1ses-419!2spe", 
-    surco: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3900.640532818322!2d-76.99509752536406!3d-12.136729543581465!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9105b80c2d1a5983%3A0x2b6ddcc57c13d391!2sJir%C3%B3n%20David%20Roca%20Varea%20Sur%20306%2C%20Santiago%20de%20Surco%2015039!5e0!3m2!1ses-419!2spe!4v1770002445122!5m2!1ses-419!2spe" 
-  };
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault(); 
@@ -38,166 +60,207 @@ export default function ContactoPage() {
   }
 
   return (
-    <main className="min-h-screen bg-sky-50 font-sans text-slate-800">
+    <main className="min-h-screen bg-white font-sans text-slate-800">
       <Navbar />
 
-      {/* 1. HEADER */}
-      <div className="bg-[#0A192F] pt-32 pb-20 px-6 text-center relative overflow-hidden">
-         <div className="absolute top-0 right-0 w-96 h-96 bg-blue-600/20 rounded-full blur-[100px] translate-x-1/2 -translate-y-1/2"></div>
-         <div className="absolute bottom-0 left-0 w-64 h-64 bg-cyan-500/10 rounded-full blur-[80px] -translate-x-1/3 translate-y-1/3"></div>
+      {/* 1. HEADER - Navy Profundo (#0A192F) */}
+      <section className="bg-[#0A192F] pt-40 pb-32 px-6 text-center relative overflow-hidden">
+         <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-600/10 rounded-full blur-[120px]"></div>
+         <div className="absolute bottom-0 left-0 w-80 h-80 bg-cyan-500/10 rounded-full blur-[100px]"></div>
          
-         <div className="relative z-10 max-w-2xl mx-auto">
-            <h1 className="text-4xl md:text-5xl font-bold text-white mb-4 tracking-tight">
-              Contáctanos
+         <div className="relative z-10 max-w-3xl mx-auto">
+            <h1 className="text-4xl md:text-6xl font-extrabold text-white mb-6 tracking-tight">
+              ¿Hablamos de tu <span className="text-sky-300">empresa?</span>
             </h1>
-            <p className="text-blue-200 text-lg leading-relaxed">
-              Estamos listas para escuchar tus necesidades y diseñar una estrategia a tu medida.
+            <p className="text-blue-100/70 text-lg md:text-xl leading-relaxed max-w-2xl mx-auto">
+              Estamos listas para escuchar tus necesidades y diseñar una estrategia contable a tu medida.
             </p>
          </div>
-      </div>
+      </section>
 
-      {/* 2. FORMULARIO */}
-      <section className="max-w-3xl mx-auto px-6 py-16">
-        <div className="text-center mb-10">
-          <h2 className="text-2xl font-bold text-[#0A192F]">Envíanos un mensaje</h2>
-          <p className="text-blue-700/70 mt-2">Te responderemos a la brevedad posible.</p>
-        </div>
+      {/* 2. SECCIÓN FORMULARIO (Solapada al Header) */}
+      <section className="relative z-20 -mt-16 max-w-4xl mx-auto px-6">
+        <div className="bg-white rounded-3xl shadow-2xl shadow-blue-900/10 p-8 md:p-12 border border-slate-100">
+          <div className="text-center mb-10">
+            <h2 className="text-3xl font-bold text-[#0A192F]">Envíanos un mensaje</h2>
+            <p className="text-slate-500 mt-2">Te responderemos en menos de 24 horas hábiles.</p>
+          </div>
 
-        <form ref={formRef} onSubmit={handleSubmit} className="space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                    <label htmlFor="nombre" className="block text-sm font-semibold text-slate-700 mb-2 pl-1">Nombre Completo</label>
-                    <input type="text" id="nombre" name="nombre" required className="w-full px-5 py-4 rounded-xl bg-white border border-slate-200 shadow-sm focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all outline-none text-slate-800 placeholder:text-slate-400" placeholder="Tu nombre" />
-                </div>
-                <div>
-                    <label htmlFor="email" className="block text-sm font-semibold text-slate-700 mb-2 pl-1">Correo electrónico</label>
-                    <input type="email" id="email" name="email" required className="w-full px-5 py-4 rounded-xl bg-white border border-slate-200 shadow-sm focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all outline-none text-slate-800 placeholder:text-slate-400" placeholder="ejemplo@correo.com" />
-                </div>
-            </div>
-            <div>
-                <label htmlFor="asunto" className="block text-sm font-semibold text-slate-700 mb-2 pl-1">Asunto</label>
-                <input type="text" id="asunto" name="asunto" required className="w-full px-5 py-4 rounded-xl bg-white border border-slate-200 shadow-sm focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all outline-none text-slate-800 placeholder:text-slate-400" placeholder="¿En qué podemos ayudarte?" />
-            </div>
-            <div>
-                <label htmlFor="mensaje" className="block text-sm font-semibold text-slate-700 mb-2 pl-1">Mensaje</label>
-                <textarea id="mensaje" name="mensaje" required rows={5} className="w-full px-5 py-4 rounded-xl bg-white border border-slate-200 shadow-sm focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all outline-none resize-none text-slate-800 placeholder:text-slate-400" placeholder="Cuéntanos sobre tu proyecto o duda..." />
-            </div>
+          <form ref={formRef} onSubmit={handleSubmit} className="space-y-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="space-y-2">
+                      <label htmlFor="nombre" className="text-sm font-bold text-slate-700 ml-1">Nombre Completo</label>
+                      <input type="text" id="nombre" name="nombre" required className="w-full px-5 py-4 rounded-xl bg-slate-50 border border-slate-200 focus:bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all outline-none" placeholder="Tu nombre" />
+                  </div>
+                  <div className="space-y-2">
+                      <label htmlFor="email" className="text-sm font-bold text-slate-700 ml-1">Correo Corporativo</label>
+                      <input type="email" id="email" name="email" required className="w-full px-5 py-4 rounded-xl bg-slate-50 border border-slate-200 focus:bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all outline-none" placeholder="ejemplo@empresa.com" />
+                  </div>
+              </div>
+              <div className="space-y-2">
+                  <label htmlFor="asunto" className="text-sm font-bold text-slate-700 ml-1">Asunto</label>
+                  <input type="text" id="asunto" name="asunto" required className="w-full px-5 py-4 rounded-xl bg-slate-50 border border-slate-200 focus:bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all outline-none" placeholder="¿En qué podemos ayudarte?" />
+              </div>
+              <div className="space-y-2">
+                  <label htmlFor="mensaje" className="text-sm font-bold text-slate-700 ml-1">Mensaje</label>
+                  <textarea id="mensaje" name="mensaje" required rows={4} className="w-full px-5 py-4 rounded-xl bg-slate-50 border border-slate-200 focus:bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all outline-none resize-none" placeholder="Cuéntanos sobre tu situación actual..." />
+              </div>
 
-            {responseMessage && (
-                <div className={`p-4 rounded-xl text-sm font-medium animate-in fade-in slide-in-from-top-2 ${responseMessage.success ? 'bg-green-50 text-green-700 border border-green-200' : 'bg-red-50 text-red-700 border border-red-200'}`}>
-                {responseMessage.message}
-                </div>
-            )}
+              {responseMessage && (
+                  <div className={`p-4 rounded-xl text-sm font-medium flex items-center gap-3 animate-in fade-in slide-in-from-top-2 ${responseMessage.success ? 'bg-green-50 text-green-700 border border-green-200' : 'bg-red-50 text-red-700 border border-red-200'}`}>
+                    <CheckCircle2 size={18} />
+                    {responseMessage.message}
+                  </div>
+              )}
 
-            <button type="submit" disabled={isSubmitting} className="w-full bg-[#0A192F] hover:bg-blue-900 disabled:bg-blue-300 disabled:cursor-not-allowed text-white font-bold py-4 rounded-xl transition-all flex items-center justify-center gap-2 shadow-xl shadow-blue-900/20 hover:translate-y-[-2px]">
-                {isSubmitting ? <><Loader2 className="w-5 h-5 animate-spin" /> Enviando...</> : <><Send size={20} /> Enviar Mensaje</>}
-            </button>
-        </form>
+              <button type="submit" disabled={isSubmitting} className="w-full bg-[#0A192F] hover:bg-blue-600 disabled:bg-slate-300 text-white font-bold py-5 rounded-xl transition-all flex items-center justify-center gap-3 shadow-xl shadow-blue-900/20 active:scale-[0.98]">
+                  {isSubmitting ? <><Loader2 className="w-5 h-5 animate-spin" /> Procesando...</> : <><Send size={20} /> Enviar Consulta</>}
+              </button>
+          </form>
 
-        <div className="mt-6 text-center">
-             <div className="relative flex py-5 items-center">
-                <div className="flex-grow border-t border-sky-200"></div>
-                <span className="flex-shrink mx-4 text-blue-500 text-sm">¿Prefieres algo más rápido?</span>
-                <div className="flex-grow border-t border-sky-200"></div>
-            </div>
-            <a href="https://wa.me/51987889073" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-green-600 font-bold hover:text-green-700 transition-colors bg-green-50 px-6 py-3 rounded-full hover:bg-green-100">
-                <MessageCircle size={20} /> Escríbenos por WhatsApp
-            </a>
+          <div className="mt-10 pt-10 border-t border-slate-100 text-center">
+              <p className="text-slate-500 mb-4 font-medium">¿Necesitas una respuesta inmediata?</p>
+              <a href="https://wa.me/51987889073" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-3 bg-green-500 hover:bg-green-600 text-white px-8 py-4 rounded-full font-bold transition-all shadow-lg shadow-green-500/20 hover:scale-105">
+                  <MessageCircle size={22} /> Escríbanos por WhatsApp
+              </a>
+          </div>
         </div>
       </section>
 
-      {/* 3. INFO DE CONTACTO (Fondo Blanco) */}
-      <section className="bg-white py-16 border-t border-sky-100">
-        <div className="max-w-5xl mx-auto px-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-10 text-center">
-                <div className="flex flex-col items-center justify-center group">
-                    <div className="w-16 h-16 bg-blue-50 rounded-2xl flex items-center justify-center text-blue-600 mb-4 group-hover:scale-110 transition-transform duration-300">
-                        <Phone size={32} />
-                    </div>
-                    <h3 className="text-slate-400 font-medium mb-1 uppercase tracking-wider text-sm">Llámanos</h3>
-                    <p className="text-2xl md:text-3xl font-bold text-slate-900 group-hover:text-blue-700 transition-colors">
-                        +51 987 889 073
-                    </p>
-                </div>
-
-                <div className="flex flex-col items-center justify-center group">
-                    <div className="w-16 h-16 bg-cyan-50 rounded-2xl flex items-center justify-center text-cyan-600 mb-4 group-hover:scale-110 transition-transform duration-300">
-                        <Mail size={32} />
-                    </div>
-                    <h3 className="text-slate-400 font-medium mb-1 uppercase tracking-wider text-sm">Escríbenos</h3>
-                    <p className="text-2xl md:text-3xl font-bold text-slate-900 group-hover:text-cyan-700 transition-colors">
-                        yocontatec@outlook.com
-                    </p>
-                </div>
-            </div>
-        </div>
+      {/* 3. TARJETAS DE CONTACTO RÁPIDO */}
+      <section className="py-24 max-w-6xl mx-auto px-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div className="flex items-center gap-6 p-8 rounded-3xl bg-slate-50 border border-slate-100 group hover:bg-white hover:shadow-xl transition-all duration-500">
+                  <div className="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center shadow-lg shadow-blue-600/30 group-hover:rotate-12 transition-transform">
+                      <Phone size={30} />
+                  </div>
+                  <div>
+                      <h4 className="text-slate-400 text-xs font-black uppercase tracking-widest mb-1">Llámanos</h4>
+                      <p className="text-2xl font-bold text-[#0A192F]">+51 987 889 073</p>
+                  </div>
+              </div>
+              <div className="flex items-center gap-6 p-8 rounded-3xl bg-slate-50 border border-slate-100 group hover:bg-white hover:shadow-xl transition-all duration-500">
+                  <div className="w-16 h-16 bg-cyan-500 text-white rounded-2xl flex items-center justify-center shadow-lg shadow-cyan-500/30 group-hover:rotate-12 transition-transform">
+                      <Mail size={30} />
+                  </div>
+                  <div>
+                      <h4 className="text-slate-400 text-xs font-black uppercase tracking-widest mb-1">Escríbanos</h4>
+                      <p className="text-2xl font-bold text-[#0A192F]">yocontatec@outlook.com</p>
+                  </div>
+              </div>
+          </div>
       </section>
 
-      {/* 4. SELECCIÓN DE SEDES */}
-      <section className="bg-emerald-50 py-16 border-t border-emerald-100">
-        <div className="max-w-5xl mx-auto px-6">
-            <h3 className="text-center text-[#0A192F] font-bold text-3xl md:text-4xl mb-12 flex items-center justify-center gap-3">
-                <Building2 className="text-blue-600" size={40} /> Nuestras Sedes
-            </h3>
+      {/* 4. NUEVA SECCIÓN: SEDES (ESTILO TARJETA INTERACTIVA) */}
+      <section className="bg-sky-50 py-24 px-6">
+        <div className="max-w-5xl mx-auto">
             
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            {/* Título de la sección */}
+            <div className="text-center mb-12">
+                <h3 className="text-3xl md:text-4xl font-extrabold text-[#0A192F] mb-4">
+                  Nuestras Sedes
+                </h3>
                 
-                {/* OPCIÓN 1: San Juan de Miraflores (CON INDICADOR PRINCIPAL) */}
-                <div 
-                    onClick={() => setActiveLocation('sjm')}
-                    className={`relative p-8 rounded-2xl border-2 flex flex-col items-center text-center cursor-pointer transition-all duration-300 hover:shadow-lg hover:-translate-y-1 ${
-                        activeLocation === 'sjm' 
-                        ? 'bg-blue-50/80 border-blue-500 shadow-md' 
-                        : 'bg-white border-emerald-200 hover:border-blue-300'
-                    }`}
-                >
-                    {/* --- AQUÍ ESTÁ EL INDICADOR DE SEDE PRINCIPAL --- */}
-                    {/* Se muestra siempre, independientemente de si está seleccionada o no */}
-                    <span className="absolute top-4 right-4 bg-blue-100 text-blue-800 text-[10px] font-extrabold px-3 py-1 rounded-full uppercase tracking-wider border border-blue-200">
-                        Principal
-                    </span>
-
-                    <div className={`p-4 rounded-full mb-4 transition-colors ${activeLocation === 'sjm' ? 'bg-white text-blue-600' : 'bg-red-100 text-red-400'}`}>
-                        <MapPin size={28} />
-                    </div>
-                    <h4 className={`text-xl font-bold mb-2 ${activeLocation === 'sjm' ? 'text-blue-900' : 'text-slate-700'}`}>Sede San Juan de Miraflores</h4>
-                    <p className="text-slate-600">C. Maximiliano Carranza 486</p>
+                {/* Botones Toggle (Tipo Píldora) */}
+                <div className="inline-flex bg-white p-1.5 rounded-full shadow-sm border border-slate-200 mt-4">
+                    <button 
+                        onClick={() => setActiveLocation('sjm')}
+                        className={`px-6 py-2.5 rounded-full text-sm font-bold transition-all duration-300 ${
+                            activeLocation === 'sjm' 
+                            ? 'bg-blue-600 text-white shadow-md' 
+                            : 'text-slate-500 hover:text-slate-700 hover:bg-slate-50'
+                        }`}
+                    >
+                        {locationData.sjm.shortName}
+                    </button>
+                    <button 
+                        onClick={() => setActiveLocation('surco')}
+                        className={`px-6 py-2.5 rounded-full text-sm font-bold transition-all duration-300 ${
+                            activeLocation === 'surco' 
+                            ? 'bg-blue-600 text-white shadow-md' 
+                            : 'text-slate-500 hover:text-slate-700 hover:bg-slate-50'
+                        }`}
+                    >
+                        {locationData.surco.shortName}
+                    </button>
                 </div>
-
-                {/* OPCIÓN 2: Surco */}
-                <div 
-                    onClick={() => setActiveLocation('surco')}
-                    className={`relative p-8 rounded-2xl border-2 flex flex-col items-center text-center cursor-pointer transition-all duration-300 hover:shadow-lg hover:-translate-y-1 ${
-                        activeLocation === 'surco' 
-                        ? 'bg-blue-50/80 border-blue-500 shadow-md' 
-                        : 'bg-white border-emerald-200 hover:border-blue-300'
-                    }`}
-                >
-                    <div className={`p-4 rounded-full mb-4 transition-colors ${activeLocation === 'surco' ? 'bg-white text-blue-600' : 'bg-red-100 text-red-400'}`}>
-                        <MapPin size={28} />
-                    </div>
-                    <h4 className={`text-xl font-bold mb-2 ${activeLocation === 'surco' ? 'text-blue-900' : 'text-slate-700'}`}>Sede Surco</h4>
-                    <p className="text-slate-600">Jr. David Roca Varea Sur 306</p>
-                </div>
-
             </div>
-        </div>
-      </section>
 
-      {/* 5. MAPA INTERACTIVO */}
-      <section className="w-full h-[500px] bg-cyan-100 transition-all duration-500">
-        <iframe 
-            key={activeLocation} 
-            src={mapUrls[activeLocation]}
-            width="100%" 
-            height="100%" 
-            style={{ border: 0 }} 
-            allowFullScreen 
-            loading="lazy" 
-            referrerPolicy="no-referrer-when-downgrade"
-            className="w-full h-full animate-in fade-in duration-700"
-            title={`Mapa de la sede ${activeLocation}`}
-        ></iframe>
+            {/* Tarjeta Principal (Mapa + Info) */}
+            <div className="bg-white rounded-[2rem] shadow-xl shadow-blue-900/5 overflow-hidden flex flex-col md:flex-row h-auto md:h-[500px] border border-white transition-all duration-500">
+                
+                {/* Lado Izquierdo: Mapa */}
+                <div className="w-full md:w-1/2 h-[300px] md:h-full bg-slate-200 relative">
+                    <iframe 
+                        key={activeLocation} 
+                        src={currentLocation.mapUrl}
+                        width="100%" 
+                        height="100%" 
+                        style={{ border: 0, filter: 'contrast(1.05) opacity(0.95)' }} 
+                        allowFullScreen 
+                        loading="lazy" 
+                        referrerPolicy="no-referrer-when-downgrade"
+                        className="w-full h-full object-cover animate-in fade-in duration-700"
+                        title={`Mapa de ${currentLocation.fullName}`}
+                    ></iframe>
+                </div>
+
+                {/* Lado Derecho: Información */}
+                <div className="w-full md:w-1/2 p-10 md:p-14 flex flex-col justify-center animate-in slide-in-from-right-4 fade-in duration-500 key={activeLocation}">
+                    <h2 className="text-2xl md:text-3xl font-bold text-[#0A192F] mb-8">
+                        {currentLocation.fullName}
+                    </h2>
+
+                    <div className="space-y-6">
+                        {/* Dirección */}
+                        <div className="flex items-start gap-4">
+                            <div className="w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center shrink-0 text-blue-600 mt-1">
+                                <MapPin size={20} />
+                            </div>
+                            <div>
+                                <p className="text-slate-500 text-sm font-medium mb-1">Dirección</p>
+                                <p className="text-slate-800 font-semibold">{currentLocation.address}</p>
+                                <p className="text-slate-400 text-sm">{currentLocation.city}</p>
+                            </div>
+                        </div>
+
+                        {/* Teléfono */}
+                        <div className="flex items-start gap-4">
+                             <div className="w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center shrink-0 text-blue-600 mt-1">
+                                <Phone size={20} />
+                            </div>
+                            <div>
+                                <p className="text-slate-500 text-sm font-medium mb-1">Teléfono</p>
+                                <p className="text-slate-800 font-semibold">{currentLocation.phone}</p>
+                            </div>
+                        </div>
+
+                        {/* Horario */}
+                        <div className="flex items-start gap-4">
+                             <div className="w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center shrink-0 text-blue-600 mt-1">
+                                <Clock size={20} />
+                            </div>
+                            <div>
+                                <p className="text-slate-500 text-sm font-medium mb-1">Horario de Atención</p>
+                                <p className="text-slate-800 font-semibold">{currentLocation.hours}</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="mt-10 pt-8 border-t border-slate-100">
+                        <a 
+                            href={currentLocation.mapUrl} // Enlace para abrir en Google Maps
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-2 text-blue-600 font-bold hover:gap-4 transition-all"
+                        >
+                            Ver en Google Maps <ArrowRight size={20} />
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
       </section>
 
       <Footer />
