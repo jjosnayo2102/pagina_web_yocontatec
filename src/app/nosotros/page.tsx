@@ -66,9 +66,6 @@ export default function NosotrosPage() {
 
         <div className="relative mx-auto grid max-w-7xl grid-cols-1 items-center gap-14 px-6 lg:grid-cols-[1.1fr_0.9fr]">
           <div className="space-y-8">
-            <span className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm font-semibold uppercase tracking-[0.2em] text-sky-200">
-              Firma Boutique Contable
-            </span>
             <h1 className="text-4xl font-bold leading-tight text-white md:text-5xl lg:text-6xl">
               ¿Quiénes Somos?
             </h1>
@@ -81,33 +78,11 @@ export default function NosotrosPage() {
               Nuestra esencia combina la precisión técnica con la innovación digital. No solo llevamos
               contabilidad; construimos estrategias que transforman datos en decisiones de valor.
             </p>
-
-            <div className="grid max-w-2xl grid-cols-2 gap-4 pt-2 md:grid-cols-3">
-              <div className="rounded-2xl border border-white/20 bg-white/10 p-4 backdrop-blur-sm">
-                <p className="text-2xl font-bold text-white">+20</p>
-                <p className="text-xs uppercase tracking-wider text-blue-100">Años de experiencia</p>
-              </div>
-              <div className="rounded-2xl border border-white/20 bg-white/10 p-4 backdrop-blur-sm">
-                <p className="text-2xl font-bold text-white">100%</p>
-                <p className="text-xs uppercase tracking-wider text-blue-100">Liderazgo femenino</p>
-              </div>
-              <div className="rounded-2xl border border-white/20 bg-white/10 p-4 backdrop-blur-sm col-span-2 md:col-span-1">
-                <p className="text-2xl font-bold text-white">360°</p>
-                <p className="text-xs uppercase tracking-wider text-blue-100">Cobertura consultiva</p>
-              </div>
-            </div>
           </div>
 
           <div className="relative h-[430px] w-full overflow-hidden rounded-[2rem] border border-white/20 shadow-2xl lg:h-[540px]">
             <Image src="/office-meeting.jpg" alt="Equipo profesional" fill className="object-cover" priority />
             <div className="absolute inset-0 bg-gradient-to-t from-[#031025]/75 via-[#0b2a53]/25 to-transparent" />
-
-            <div className="absolute bottom-6 left-6 right-6 rounded-2xl border border-white/20 bg-[#061731]/70 p-5 text-white backdrop-blur-sm">
-              <p className="text-xs uppercase tracking-[0.18em] text-sky-200">Nuestra propuesta de valor</p>
-              <p className="mt-2 text-lg font-semibold leading-snug">
-                Convierte tus obligaciones contables en una ventaja estratégica para crecer con control.
-              </p>
-            </div>
           </div>
         </div>
       </section>
