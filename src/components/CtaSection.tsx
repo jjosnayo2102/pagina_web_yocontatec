@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 export default function CtaSection() {
   return (
-    <section className="py-20 px-6 text-center bg-slate-50">
+    <section className="py-20 px-6 text-center bg-red-50">
       <div className="max-w-3xl mx-auto">
         <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-8 leading-tight">
           ¿Lista para transformar tu contabilidad? <br />

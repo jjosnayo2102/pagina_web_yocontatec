@@ -140,7 +140,7 @@ export default function Home() {
       </section>
 
       {/* ----------------- SERVICIOS SECTION ----------------- */}
-      <section className="w-full py-24 bg-slate-50/80 border-y border-slate-100">
+      <section className="w-full py-24 bg-sky-50/80 border-y border-sky-100">
         <div className="max-w-7xl mx-auto px-6">
             <div className="text-center mb-16">
                 <span className="text-blue-600 font-bold uppercase tracking-wider text-sm">Soluciones Integrales</span>
@@ -150,7 +150,7 @@ export default function Home() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                 {services.map((svc, idx) => (
                     <Link href={svc.link} key={idx} className="group h-full">
-                        <div className="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 h-full flex flex-col hover:shadow-xl transition-all duration-300 hover:-translate-y-1 relative overflow-hidden">
+                        <div className="bg-white p-8 rounded-2xl shadow-sm border border-sky-200 h-full flex flex-col hover:shadow-xl transition-all duration-300 hover:-translate-y-1 relative overflow-hidden">
                             <div className={`absolute top-0 left-0 w-full h-1 ${svc.colorAccent.split(' ')[1].replace('bg-', 'bg-')}`}></div>
                             
                             <div className={`w-14 h-14 rounded-xl flex items-center justify-center mb-6 transition-colors duration-300 ${svc.colorAccent.split('group-hover')[0]} ${svc.colorAccent.split(' ')[2] || ''} group-hover:text-white`}>
@@ -201,7 +201,7 @@ export default function Home() {
 
             <div className="relative flex items-center group">
                 {/* Flecha Izquierda */}
-                <button className="absolute left-0 z-10 p-3 rounded-full bg-white shadow-lg text-blue-600 hover:bg-blue-50 transition-all opacity-0 group-hover:opacity-100 -translate-x-6 group-hover:translate-x-0 hidden md:block border border-slate-100">
+                <button className="absolute left-0 z-10 p-3 rounded-full bg-white shadow-lg text-blue-600 hover:bg-blue-50 transition-all opacity-0 group-hover:opacity-100 -translate-x-6 group-hover:translate-x-0 hidden md:block border border-sky-100">
                     <ChevronLeft size={32} />
                 </button>
 
@@ -209,7 +209,7 @@ export default function Home() {
                 <div className="w-full overflow-hidden px-4 md:px-12">
                     <div className="flex justify-between items-center gap-8 md:gap-12 grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-500">
                         {clientLogos.map((name, index) => (
-                        <div key={index} className="flex-shrink-0 h-20 w-40 bg-slate-50 border border-slate-100 rounded-lg flex items-center justify-center p-4">
+                        <div key={index} className="flex-shrink-0 h-20 w-40 bg-emerald-50 border border-emerald-100 rounded-lg flex items-center justify-center p-4">
                             <span className="text-slate-400 font-bold italic text-center text-sm">{name}</span>
                         </div>
                         ))}
@@ -217,7 +217,7 @@ export default function Home() {
                 </div>
 
                 {/* Flecha Derecha */}
-                <button className="absolute right-0 z-10 p-3 rounded-full bg-white shadow-lg text-blue-600 hover:bg-blue-50 transition-all opacity-0 group-hover:opacity-100 translate-x-6 group-hover:translate-x-0 hidden md:block border border-slate-100">
+                <button className="absolute right-0 z-10 p-3 rounded-full bg-white shadow-lg text-blue-600 hover:bg-blue-50 transition-all opacity-0 group-hover:opacity-100 translate-x-6 group-hover:translate-x-0 hidden md:block border border-sky-100">
                     <ChevronRight size={32} />
                 </button>
             </div>
