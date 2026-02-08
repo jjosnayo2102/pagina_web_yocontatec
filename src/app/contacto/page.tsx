@@ -7,7 +7,7 @@ import { useState, useRef } from 'react';
 import { submitContactForm } from '@/actions/contact-action';
 import Link from 'next/link';
 
-// Datos de las sedes para facilitar el cambio de información
+// --- MODIFICACIÓN AQUÍ: Separamos la URL del Embed y la URL del Enlace ---
 const locationData = {
   sjm: {
     id: 'sjm',
@@ -17,7 +17,10 @@ const locationData = {
     city: 'San Juan de Miraflores, Lima',
     phone: '+51 987 889 073',
     hours: 'Lun - Vie: 9:00 AM - 6:00 PM',
-    mapUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3900.244346850259!2d-76.9744!3d-12.16!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTLCsDA5JzM2LjAiUyA3NsKwNTgnMjcuOCJX!5e0!3m2!1ses!2spe!4v1700000000000!5m2!1ses!2spe" // Tu URL original
+    // URL para el IFRAME (Embed)
+    mapEmbedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3900.556736458368!2d-76.96967562402777!3d-12.142385443714243!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9105b86134a490d1%3A0x6334690380065706!2sC.%20Maximiliano%20Carranza%20486%2C%20San%20Juan%20de%20Miraflores%2015801!5e0!3m2!1ses-419!2spe!4v1700000000000!5m2!1ses-419!2spe",
+    // URL para el BOTÓN (Link externo)
+    mapLinkUrl: "https://www.google.com/maps/search/?api=1&query=C.+Maximiliano+Carranza+486,+San+Juan+de+Miraflores"
   },
   surco: {
     id: 'surco',
@@ -27,7 +30,10 @@ const locationData = {
     city: 'Santiago de Surco, Lima',
     phone: '+51 987 889 073',
     hours: 'Lun - Vie: 9:00 AM - 6:00 PM',
-    mapUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3900.7456!2d-76.99!3d-12.13!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTLCsDA3JzQ0LjAiUyA3NsKwNTknMjQuMCJX!5e0!3m2!1ses!2spe!4v1700000000001!5m2!1ses!2spe" // Tu URL original
+    // URL para el IFRAME (Embed)
+    mapEmbedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3900.8987654321!2d-77.005177!3d-12.119022!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTLCsDA3JzA4LjUiUyA3N8KwMDAnMTguNiJX!5e0!3m2!1ses-419!2spe!4v1600000000000!5m2!1ses-419!2spe", 
+    // URL para el BOTÓN (Link externo)
+    mapLinkUrl: "https://www.google.com/maps/search/?api=1&query=Jr.+David+Roca+Varea+Sur+306,+Santiago+de+Surco"
   }
 };
 
@@ -35,10 +41,8 @@ export default function ContactoPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [responseMessage, setResponseMessage] = useState<{success: boolean, message: string} | null>(null);
   
-  // Estado para controlar qué mapa se muestra (Default: 'sjm')
   const [activeLocation, setActiveLocation] = useState<'sjm' | 'surco'>('sjm');
   
-  // Helper para obtener los datos actuales de forma limpia
   const currentLocation = locationData[activeLocation];
 
   const formRef = useRef<HTMLFormElement>(null);
@@ -63,7 +67,7 @@ export default function ContactoPage() {
     <main className="min-h-screen bg-white font-sans text-slate-800">
       <Navbar />
 
-      {/* 1. HEADER - Navy Profundo (#0A192F) */}
+      {/* 1. HEADER */}
       <section className="bg-[#0A192F] pt-40 pb-32 px-6 text-center relative overflow-hidden">
          <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-600/10 rounded-full blur-[120px]"></div>
          <div className="absolute bottom-0 left-0 w-80 h-80 bg-cyan-500/10 rounded-full blur-[100px]"></div>
@@ -78,7 +82,7 @@ export default function ContactoPage() {
          </div>
       </section>
 
-      {/* 2. SECCIÓN FORMULARIO (Solapada al Header) */}
+      {/* 2. SECCIÓN FORMULARIO */}
       <section className="relative z-20 -mt-16 max-w-4xl mx-auto px-6">
         <div className="bg-white rounded-3xl shadow-2xl shadow-blue-900/10 p-8 md:p-12 border border-slate-100">
           <div className="text-center mb-10">
@@ -151,17 +155,15 @@ export default function ContactoPage() {
           </div>
       </section>
 
-      {/* 4. NUEVA SECCIÓN: SEDES (ESTILO TARJETA INTERACTIVA) */}
+      {/* 4. SECCIÓN: SEDES */}
       <section className="bg-sky-50 py-24 px-6">
         <div className="max-w-5xl mx-auto">
             
-            {/* Título de la sección */}
             <div className="text-center mb-12">
                 <h3 className="text-3xl md:text-4xl font-extrabold text-[#0A192F] mb-4">
                   Nuestras Sedes
                 </h3>
                 
-                {/* Botones Toggle (Tipo Píldora) */}
                 <div className="inline-flex bg-white p-1.5 rounded-full shadow-sm border border-slate-200 mt-4">
                     <button 
                         onClick={() => setActiveLocation('sjm')}
@@ -186,14 +188,13 @@ export default function ContactoPage() {
                 </div>
             </div>
 
-            {/* Tarjeta Principal (Mapa + Info) */}
             <div className="bg-white rounded-[2rem] shadow-xl shadow-blue-900/5 overflow-hidden flex flex-col md:flex-row h-auto md:h-[500px] border border-white transition-all duration-500">
                 
-                {/* Lado Izquierdo: Mapa */}
+                {/* Lado Izquierdo: Mapa (Usa mapEmbedUrl) */}
                 <div className="w-full md:w-1/2 h-[300px] md:h-full bg-slate-200 relative">
                     <iframe 
                         key={activeLocation} 
-                        src={currentLocation.mapUrl}
+                        src={currentLocation.mapEmbedUrl} 
                         width="100%" 
                         height="100%" 
                         style={{ border: 0, filter: 'contrast(1.05) opacity(0.95)' }} 
@@ -212,7 +213,6 @@ export default function ContactoPage() {
                     </h2>
 
                     <div className="space-y-6">
-                        {/* Dirección */}
                         <div className="flex items-start gap-4">
                             <div className="w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center shrink-0 text-blue-600 mt-1">
                                 <MapPin size={20} />
@@ -224,7 +224,6 @@ export default function ContactoPage() {
                             </div>
                         </div>
 
-                        {/* Teléfono */}
                         <div className="flex items-start gap-4">
                              <div className="w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center shrink-0 text-blue-600 mt-1">
                                 <Phone size={20} />
@@ -235,7 +234,6 @@ export default function ContactoPage() {
                             </div>
                         </div>
 
-                        {/* Horario */}
                         <div className="flex items-start gap-4">
                              <div className="w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center shrink-0 text-blue-600 mt-1">
                                 <Clock size={20} />
@@ -248,8 +246,9 @@ export default function ContactoPage() {
                     </div>
 
                     <div className="mt-10 pt-8 border-t border-slate-100">
+                        {/* Lado Derecho: Link (Usa mapLinkUrl) */}
                         <a 
-                            href={currentLocation.mapUrl} // Enlace para abrir en Google Maps
+                            href={currentLocation.mapLinkUrl}
                             target="_blank" 
                             rel="noopener noreferrer"
                             className="inline-flex items-center gap-2 text-blue-600 font-bold hover:gap-4 transition-all"

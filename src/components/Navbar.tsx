@@ -36,9 +36,6 @@ export default function Navbar() {
           <Link href="/servicios" className="hover:text-[#FF451A] transition-colors">
             Servicios
           </Link>
-          <Link href="/blog" className="hover:text-[#FF451A] transition-colors">
-            Blog
-          </Link>
         </div>
 
         <div className="hidden md:block">
