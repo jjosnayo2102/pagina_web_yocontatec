@@ -134,24 +134,34 @@ export default function ContactoPage() {
       {/* 3. TARJETAS DE CONTACTO RÁPIDO */}
       <section className="py-24 max-w-6xl mx-auto px-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              <div className="flex items-center gap-6 p-8 rounded-3xl bg-slate-50 border border-slate-100 group hover:bg-white hover:shadow-xl transition-all duration-500">
-                  <div className="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center shadow-lg shadow-blue-600/30 group-hover:rotate-12 transition-transform">
-                      <Phone size={30} />
+              
+              {/* TARJETA TELÉFONO */}
+              <div className="flex items-center gap-4 md:gap-6 p-6 md:p-8 rounded-3xl bg-slate-50 border border-slate-100 group hover:bg-white hover:shadow-xl transition-all duration-500">
+                  {/* Icono más pequeño en móvil (w-12) y grande en desktop (md:w-16) */}
+                  <div className="w-12 h-12 md:w-16 md:h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center shadow-lg shadow-blue-600/30 group-hover:rotate-12 transition-transform shrink-0">
+                      <Phone className="w-6 h-6 md:w-[30px] md:h-[30px]" />
                   </div>
-                  <div>
+                  <div className="overflow-hidden">
                       <h4 className="text-slate-400 text-xs font-black uppercase tracking-widest mb-1">Llámanos</h4>
-                      <p className="text-2xl font-bold text-[#0A192F]">+51 987 889 073</p>
+                      <p className="text-lg md:text-2xl font-bold text-[#0A192F] whitespace-nowrap">+51 987 889 073</p>
                   </div>
               </div>
-              <div className="flex items-center gap-6 p-8 rounded-3xl bg-slate-50 border border-slate-100 group hover:bg-white hover:shadow-xl transition-all duration-500">
-                  <div className="w-16 h-16 bg-cyan-500 text-white rounded-2xl flex items-center justify-center shadow-lg shadow-cyan-500/30 group-hover:rotate-12 transition-transform">
-                      <Mail size={30} />
+
+              {/* TARJETA CORREO (Aquí estaba el problema) */}
+              <div className="flex items-center gap-4 md:gap-6 p-6 md:p-8 rounded-3xl bg-slate-50 border border-slate-100 group hover:bg-white hover:shadow-xl transition-all duration-500">
+                   {/* Icono ajustado */}
+                  <div className="w-12 h-12 md:w-16 md:h-16 bg-cyan-500 text-white rounded-2xl flex items-center justify-center shadow-lg shadow-cyan-500/30 group-hover:rotate-12 transition-transform shrink-0">
+                      <Mail className="w-6 h-6 md:w-[30px] md:h-[30px]" />
                   </div>
-                  <div>
+                  <div className="min-w-0 flex-1"> {/* min-w-0 permite al flex item encogerse y romper el texto */}
                       <h4 className="text-slate-400 text-xs font-black uppercase tracking-widest mb-1">Escríbanos</h4>
-                      <p className="text-2xl font-bold text-[#0A192F]">yocontatec@outlook.com</p>
+                      {/* break-all fuerza a que baje si no entra, text-lg reduce el tamaño en móvil */}
+                      <p className="text-lg md:text-2xl font-bold text-[#0A192F] break-all sm:break-normal">
+                        yocontatec@outlook.com
+                      </p>
                   </div>
               </div>
+
           </div>
       </section>
 
